@@ -26,11 +26,10 @@ const transactions = ref([
 
 //Get total
 const total = computed(() => {
-  return transactions.value
-    .reduce((acc, transaction) => {
-      return acc + transaction.amount
-    }, 0)
-    .toFixed(2)
+  return transactions.value.reduce((acc, transaction) => {
+    let sum = Math.round((acc + transaction.amount) * 100) / 100
+    return sum
+  }, 0)
 })
 
 //Get income
@@ -38,9 +37,9 @@ const income = computed(() => {
   return transactions.value
     .filter((transaction) => transaction.amount > 0)
     .reduce((acc, transaction) => {
-      return acc + transaction.amount
+      let sum = Math.round((acc + transaction.amount) * 100) / 100
+      return sum
     }, 0)
-    .toFixed(2)
 })
 
 //Get expenses
@@ -48,8 +47,8 @@ const expenses = computed(() => {
   return transactions.value
     .filter((transaction) => transaction.amount < 0)
     .reduce((acc, transaction) => {
-      return acc + transaction.amount
+      let sum = Math.round((acc + transaction.amount) * 100) / 100
+      return sum
     }, 0)
-    .toFixed(2)
 })
 </script>

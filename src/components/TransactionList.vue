@@ -13,10 +13,10 @@
 </template>
 
 <script setup>
-const transactions = [
-  { id: 1, text: 'Grocery shopping', amount: -50.25 },
-  { id: 2, text: 'Venmo', amount: 30.0 },
-  { id: 3, text: 'Restaurant dinner', amount: -75.8 },
-  { id: 4, text: 'Online sale', amount: 120.5 }
-]
+defineProps({
+  transactions: {
+    type: Array,
+    required: true
+  }
+})
 </script>

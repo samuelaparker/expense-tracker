@@ -22,8 +22,8 @@ import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 
-const text = ref('')
-const amount = ref('')
+const text = ref(null)
+const amount = ref(null)
 
 const emit = defineEmits(['transactionSubmitted'])
 

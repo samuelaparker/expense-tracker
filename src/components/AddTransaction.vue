@@ -2,8 +2,8 @@
   <h3>Add new transaction</h3>
   <form id="form" @submit.prevent="onSubmit">
     <div class="form-control">
-      <label for="text">Text</label>
-      <input type="text" id="text" v-model="text" placeholder="Enter text..." />
+      <label for="text">Label</label>
+      <input type="text" id="text" v-model="text" placeholder="Enter label..." />
     </div>
     <div class="form-control">
       <label for="amount"

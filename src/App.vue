@@ -3,7 +3,11 @@
   <div class="container">
     <BalanceItem :total="total" />
     <IncomeExpenses :income="income" :expenses="expenses" />
-    <TransactionList :transactions="transactions" @transactionDeleted="handleTransactionDeleted" />
+    <TransactionList
+      :transactions="transactions"
+      @transactionDeleted="handleTransactionDeleted"
+      @transactionUpdated="handleTransactionUpdated"
+    />
     <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
   </div>
 </template>
@@ -68,6 +72,21 @@ const handleTransactionSubmitted = (transactionData) => {
   saveTransactionsToLocalStorage()
 
   toast.success('Transaction added')
+}
+
+//Update transaction
+const handleTransactionUpdated = (updatedTransaction) => {
+  // Find the index of the updated transaction in the transactions array
+  const index = transactions.value.findIndex(
+    (transaction) => transaction.id === updatedTransaction.id
+  )
+  // If the transaction is found, update its text and amount
+  if (index !== -1) {
+    // Update the transaction in the local storage
+    transactions.value[index].text = updatedTransaction.text
+    transactions.value[index].amount = updatedTransaction.amount
+    localStorage.setItem('transactions', JSON.stringify(transactions.value))
+  }
 }
 
 //Generate unique ID

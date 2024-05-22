@@ -1,3 +1,45 @@
+<script setup>
+import { defineEmits } from 'vue'
+
+const emit = defineEmits(['transactionDeleted', 'transactionUpdated'])
+defineProps({
+  transactions: {
+    type: Array,
+    required: true
+  }
+})
+
+const deleteTransaction = (id) => {
+  emit('transactionDeleted', id)
+}
+
+const editTransaction = (transaction) => {
+  transaction.editingText = true
+  transaction.editingAmount = true
+  transaction.originalText = transaction.text
+  transaction.originalAmount = transaction.amount
+}
+
+const saveEdit = (transaction) => {
+  if (transaction.text.trim() !== '' && !isNaN(transaction.amount)) {
+    emit('transactionUpdated', {
+      id: transaction.id,
+      text: transaction.text,
+      amount: transaction.amount
+    })
+  } else {
+    transaction.text = transaction.originalText
+    transaction.amount = transaction.originalAmount
+  }
+  cancelEdit(transaction)
+}
+
+const cancelEdit = (transaction) => {
+  transaction.editingText = false
+  transaction.editingAmount = false
+}
+</script>
+
 <template>
   <h3>History</h3>
   <ul id="list" class="list">
@@ -47,45 +89,3 @@
     </li>
   </ul>
 </template>
-
-<script setup>
-import { defineProps, defineEmits } from 'vue'
-
-const emit = defineEmits(['transactionDeleted', 'transactionUpdated'])
-defineProps({
-  transactions: {
-    type: Array,
-    required: true
-  }
-})
-
-const deleteTransaction = (id) => {
-  emit('transactionDeleted', id)
-}
-
-const editTransaction = (transaction) => {
-  transaction.editingText = true
-  transaction.editingAmount = true
-  transaction.originalText = transaction.text
-  transaction.originalAmount = transaction.amount
-}
-
-const saveEdit = (transaction) => {
-  if (transaction.text.trim() !== '' && !isNaN(transaction.amount)) {
-    emit('transactionUpdated', {
-      id: transaction.id,
-      text: transaction.text,
-      amount: transaction.amount
-    })
-  } else {
-    transaction.text = transaction.originalText
-    transaction.amount = transaction.originalAmount
-  }
-  cancelEdit(transaction)
-}
-
-const cancelEdit = (transaction) => {
-  transaction.editingText = false
-  transaction.editingAmount = false
-}
-</script>

@@ -1,17 +1,3 @@
-<template>
-  <HeaderItem />
-  <div class="container">
-    <BalanceItem :total="total" />
-    <IncomeExpenses :income="income" :expenses="expenses" />
-    <TransactionList
-      :transactions="transactions"
-      @transactionDeleted="handleTransactionDeleted"
-      @transactionUpdated="handleTransactionUpdated"
-    />
-    <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
-  </div>
-</template>
-
 <script setup>
 import HeaderItem from './components/HeaderItem.vue'
 import BalanceItem from './components/BalanceItem.vue'
@@ -109,3 +95,17 @@ const saveTransactionsToLocalStorage = () => {
   localStorage.setItem('transactions', JSON.stringify(transactions.value))
 }
 </script>
+
+<template>
+  <HeaderItem />
+  <div class="container">
+    <BalanceItem :total="total" />
+    <IncomeExpenses :income="income" :expenses="expenses" />
+    <TransactionList
+      :transactions="transactions"
+      @transactionDeleted="handleTransactionDeleted"
+      @transactionUpdated="handleTransactionUpdated"
+    />
+    <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
+  </div>
+</template>
